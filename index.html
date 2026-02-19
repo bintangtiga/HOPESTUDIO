@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOPE STUDIO| Nasib Bintang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0b0d17;
+            --primary-glow: #00f2ff;
+            --secondary-glow: #bd00ff;
+            --whatsapp-green: #25D366;
+            --text-color: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Dynamic Background */
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+        }
+
+        .stars, .twinkling {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .stars {
+            background: #000 url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
+        }
+
+        .twinkling {
+            background: transparent url('https://www.script-tutorials.com/demos/360/images/twinkling.png') repeat top center;
+            animation: move-twink-back 200s linear infinite;
+        }
+
+        @keyframes move-twink-back {
+            from {background-position:0 0;}
+            to {background-position:-10000px 5000px;}
+        }
+
+        /* Control Buttons Container */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+        }
+
+        .control-btn.active {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-btn:hover {
+            border-color: var(--whatsapp-green);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+            color: var(--whatsapp-green);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(0, 242, 255, 0.6); }
+            100% { box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); }
+        }
+
+        /* Main Container */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary-glow), var(--secondary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* Form Styling */
+        .input-group {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: transform 0.3s ease;
+        }
+
+        .input-group:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #333;
+            padding: 15px 0;
+            margin-bottom: 25px;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-bottom: 2px solid var(--primary-glow);
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        input[type="date"] {
+            color: #fff;
+        }
+        
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        /* Button */
+        .btn {
+            background: linear-gradient(45deg, var(--secondary-glow), var(--primary-glow));
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(189, 0, 255, 0.4);
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Results Section */
+        #result-section {
+            display: none;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .zodiac-sign {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-glow);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: left;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: var(--secondary-glow);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        .reset-btn {
+            background: transparent;
+            border: 1px solid #555;
+            color: #aaa;
+            padding: 10px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .reset-btn:hover {
+            border-color: #fff;
+            color: #fff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .container { width: 95%; padding: 20px; }
+            .controls { top: 10px; right: 10px; }
+            .control-btn { width: 45px; height: 45px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Control Buttons -->
+    <div class="controls">
+        <!-- WhatsApp Button -->
+        <a href="https://wa.me/6283841036042" target="_blank" class="control-btn whatsapp-btn" title="Chat kita di WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        
+        <!-- Music Toggle -->
+        <div class="control-btn" id="musicToggle" onclick="toggleMusic()" title="Mainin Musik">
+            <i class="fas fa-music"></i>
+        </div>
+    </div>
+
+    <!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+    <!-- Background Animation -->
+    <div class="space-bg">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>HOPE ZODIAC</h1>
+            <p class="subtitle">Temukan rahasia nasibmu</p>
+        </header>
+
+        <!-- Input Form -->
+        <div id="input-section" class="input-group">
+            <input type="text" id="name" placeholder="Nama Kamu" autocomplete="off">
+            <input type="date" id="birthdate">
+            <button type="button" class="btn" id="predictBtn">Lihat Nasib</button>
+        </div>
+
+        <!-- Results Display -->
+        <div id="result-section">
+            <div class="zodiac-sign" id="zodiac-display">CAPRICORN</div>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <h3> NASIB</h3>
+                    <p id="destiny-text">Loading...</p>
+                </div>
+                <div class="card">
+                    <h3>CINTA</h3>
+                    <p id="love-text">Loading...</p>
+                </div>
+                <div class="card">
+                    <h3> KARIR</h3>
+                    <p id="career-text">Loading...</p>
+                </div>
+                <div class="card">
+                    <h3> KESEHATAN</h3>
+                    <p id="health-text">Loading...</p>
+                </div>
+            </div>
+
+            <button type="button" class="reset-btn" id="resetBtn">Coba Lagi</button>
+        </div>
+    </div>
+
+<script>
+// =====================
+// MUSIC CONTROL
+// =====================
+const musicToggle = document.getElementById('musicToggle');
+const bgMusic = document.getElementById('bgMusic');
+let isMusicPlaying = false;
+
+function toggleMusic() {
+    if (isMusicPlaying) {
+        bgMusic.pause();
+        musicToggle.classList.remove('active');
+        musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+    } else {
+        bgMusic.play().catch(() => {});
+        musicToggle.classList.add('active');
+        musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+    }
+    isMusicPlaying = !isMusicPlaying;
+}
+
+// =====================
+// DATA RAMALAN
+// =====================
+const destinies = [
+"Jalan hidupmu lagi terang-terangan nih. Ada perjalanan seru yang nunggu di depan.",
+"Kosmos bilang kamu lagi di fase perubahan besar. Siap-siap jadi versi diri yang lebih oke!",
+"Nasibmu ngasih sinyal buat lebih berani.",
+"Peluang gede lagi nyasar ke kamu. Gaspol ambil kesempatan ini!",
+"Aura kamu lagi bagus-bagusnya. Follow aja feelingmu, pasti bener."
+];
+
+const loves = [
+"Siap-siap nih, ada yang mau masuk ke hidup kamu.",
+"Fokus dulu sama diri sendiri dulu ya.",
+"Mantan mungkin bakal muncul lagi.",
+"Komunikasi itu penting banget.",
+"Cinta datang dari arah tak terduga."
+];
+
+const careers = [
+"Project baru bakal sukses.",
+"Ada peluang naik jabatan.",
+"Rezeki datang dari arah tak disangka.",
+"Skill kamu lagi dibutuhkan orang banyak.",
+"Waktunya coba hal baru."
+];
+
+const healths = [
+"Jangan lupa istirahat.",
+"Kurangi begadang.",
+"Perbanyak minum air.",
+"Olahraga ringan penting.",
+"Jaga mental health juga ya."
+];
+
+// =====================
+// ZODIAC DATA
+// =====================
+const zodiacSigns = [
+ {name:"CAPRICORN", start:[12,22], end:[1,19]},
+ {name:"AQUARIUS", start:[1,20], end:[2,18]},
+ {name:"PISCES", start:[2,19], end:[3,20]},
+ {name:"ARIES", start:[3,21], end:[4,19]},
+ {name:"TAURUS", start:[4,20], end:[5,20]},
+ {name:"GEMINI", start:[5,21], end:[6,20]},
+ {name:"CANCER", start:[6,21], end:[7,22]},
+ {name:"LEO", start:[7,23], end:[8,22]},
+ {name:"VIRGO", start:[8,23], end:[9,22]},
+ {name:"LIBRA", start:[9,23], end:[10,22]},
+ {name:"SCORPIO", start:[10,23], end:[11,21]},
+ {name:"SAGITTARIUS", start:[11,22], end:[12,21]},
+];
+
+// =====================
+// GET ZODIAC
+// =====================
+function getZodiac(month, day){
+    for(const z of zodiacSigns){
+        const [sm,sd]=z.start;
+        const [em,ed]=z.end;
+
+        if((month===sm && day>=sd)||(month===em && day<=ed)){
+            return z.name;
+        }
+    }
+    return "UNKNOWN";
+}
+
+function random(arr){
+    return arr[Math.floor(Math.random()*arr.length)];
+}
+
+// =====================
+// BUTTON ACTION
+// =====================
+document.getElementById("predictBtn").addEventListener("click", ()=>{
+
+    const name = document.getElementById("name").value.trim();
+    const birthdate = document.getElementById("birthdate").value;
+
+    if(!name || !birthdate){
+        alert("Isi nama dan tanggal lahir dulu ya!");
+        return;
+    }
+
+    const date = new Date(birthdate);
+    const zodiac = getZodiac(date.getMonth()+1,date.getDate());
+
+    document.getElementById("zodiac-display").innerText =
+        name.toUpperCase()+" • "+zodiac;
+
+    document.getElementById("destiny-text").innerText = random(destinies);
+    document.getElementById("love-text").innerText = random(loves);
+    document.getElementById("career-text").innerText = random(careers);
+    document.getElementById("health-text").innerText = random(healths);
+
+    document.getElementById("input-section").style.display="none";
+    document.getElementById("result-section").style.display="block";
+});
+
+// RESET
+document.getElementById("resetBtn").addEventListener("click",()=>{
+    document.getElementById("result-section").style.display="none";
+    document.getElementById("input-section").style.display="block";
+});
+</script>
